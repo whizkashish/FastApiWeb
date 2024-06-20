@@ -22,6 +22,13 @@
                 <li class="nav-item m-1">
                     <a type="button" class="btn btn-outline-light" href="/auth/logout">Logout</a>
                 </li>
+                {% else %}
+                <li class="nav-item m-1">
+                    <a type="button" class="btn btn-outline-light" href="/auth">Login</a>
+                </li>
+                <li class="nav-item m-1">
+                    <a type="button" class="btn btn-outline-light" href="/auth/register">Register</a>
+                </li>
                 {% endif %}
             </ul>
         </div>

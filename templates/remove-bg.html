@@ -1,0 +1,32 @@
+{% include './layout.html' %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Upload Your Image to change Background
+        </div>
+        <div class="card-body">
+            {% if msg %}
+            {% if msg == 'Background removed' %}
+            <div class="alert alert-success" role="alert">
+                {{msg}}
+            </div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                {{msg}}
+            </div>
+            {% endif %}
+            {% endif %}
+            <form method="POST" action="/" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="file" value="" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+            {% if encoded_image %}
+                <img src="data:image/png;base64,{{encoded_image}}">
+            {% endif %}
+        </div>
+    </div>
+</div>
