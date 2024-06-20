@@ -2,12 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import  sessionmaker, declarative_base
 
 #sqlite3
-# SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
+SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
 
 #pgsql
-SQLALCHEMY_DATABASE_URL = 'postgresql://todos:ZdAzW6rPqBuRwalPE8qh8l77aJo46fB8@dpg-cppu0omehbks73c8nqfg-a.oregon-postgres.render.com/todos_cve8'
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+# SQLALCHEMY_DATABASE_URL = 'postgresql://todos:ZdAzW6rPqBuRwalPE8qh8l77aJo46fB8@dpg-cppu0omehbks73c8nqfg-a.oregon-postgres.render.com/todos_cve8'
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 #mysql
 # SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://root:Aa147147147#@127.0.0.1:3306/todos'
