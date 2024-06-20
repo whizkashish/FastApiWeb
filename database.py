@@ -6,7 +6,7 @@ from sqlalchemy.orm import  sessionmaker, declarative_base
 # engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
 
 #pgsql
-SQLALCHEMY_DATABASE_URL = 'postgresql://todos:ZdAzW6rPqBuRwalPE8qh8l77aJo46fB8@dpg-cppu0omehbks73c8nqfg-a/todos_cve8'
+SQLALCHEMY_DATABASE_URL = 'postgresql://todos:ZdAzW6rPqBuRwalPE8qh8l77aJo46fB8@dpg-cppu0omehbks73c8nqfg-a.oregon-postgres.render.com/todos_cve8'
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 #mysql
@@ -17,3 +17,4 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
 Base = declarative_base()
+
