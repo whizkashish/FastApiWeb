@@ -24,8 +24,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </form>
-            {% if encoded_image %}
-                <img src="data:image/png;base64,{{encoded_image}}">
+            {% if imagepath %}
+                <a download="processed.png" href="{{ url_for('images', path=imagepath) }}" class="btn btn-primary">Download</a>
+                <img src="{{ url_for('images', path=imagepath) }}">
+           
             {% endif %}
         </div>
     </div>

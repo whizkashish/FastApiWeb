@@ -12,6 +12,8 @@ models.Base.metadata.create_all(bind=engine)
 
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/images", StaticFiles(directory="uploaded_images"), name="images")
+
 
 @app.get("/healthy")
 def health_check():

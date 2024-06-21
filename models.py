@@ -25,3 +25,11 @@ class Todos(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
 
+class BackgroundRemovedImages(Base):
+    __tablename__ = "images"
+
+    id = Column(Integer, primary_key=True, index=True)
+    original_path = Column(String, index=True)
+    processed_path = Column(String, index=True)
+
+
