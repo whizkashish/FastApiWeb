@@ -1,17 +1,15 @@
 import sys
 sys.path.append("..")
 import os
-from fastapi import FastAPI, File, UploadFile, Request, APIRouter, Depends
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, File, UploadFile, Request, APIRouter, Depends, status
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from fastapi.staticfiles import StaticFiles
 from rembg import remove
-from PIL import Image
 from models import BackgroundRemovedImages
 from database import SessionLocal
 import uuid
-import tempfile
-import base64
+
+
 from .auth import get_current_user
 
 app = FastAPI()
@@ -43,6 +41,13 @@ async def remove_bg(request: Request):
     return templates.TemplateResponse("remove-bg.html", {"request": request, "user": user})
 
 
+@router.get("/{image_id}")
+async def remove_bg(request: Request, image_id: int, db: Session = Depends(get_db)):
+    user = await get_current_user(request)
+    image_Row = db.query(BackgroundRemovedImages).filter(BackgroundRemovedImages.id == image_id).first()
+    return templates.TemplateResponse("remove-bg.html", {"request": request, "user": user, "image_row": image_Row})
+
+
 @router.post("/")
 async def remove_bg(request: Request, file: UploadFile = File(...),db: Session = Depends(get_db)):
     input_image = await file.read()
@@ -70,6 +75,4 @@ async def remove_bg(request: Request, file: UploadFile = File(...),db: Session =
     db.add(image)
     db.commit()
     db.refresh(image)
-    image_path = model_processed_path
-    
-    return templates.TemplateResponse("remove-bg.html", {"request": request, "imagepath": image_path})
+    return RedirectResponse(url=f"/{image.id}", status_code=status.HTTP_302_FOUND)

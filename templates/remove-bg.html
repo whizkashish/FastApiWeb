@@ -1,34 +1,53 @@
 {% include './layout.html' %}
-
+{% if image_row %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Original Image
+                </div>
+                <div class="card-body">
+                   {% if image_row and image_row.original_path %}
+                        <img style="width:100%" src="{{ url_for('images', path=image_row.original_path) }}">
+                   
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Original Image <a href="{{ url_for('images', path=image_row.processed_path) }}" download="Bg-image.png" class="btn btn-primary">Download</a>
+                </div>
+                <div class="card-body">
+                    
+                   {% if image_row and image_row.processed_path %}
+                        <img style="width:100%" src="{{ url_for('images', path=image_row.processed_path) }}">
+                   
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 <div class="container">
     <div class="card">
         <div class="card-header">
             Upload Your Image to change Background
         </div>
         <div class="card-body">
-            {% if msg %}
-            {% if msg == 'Background removed' %}
-            <div class="alert alert-success" role="alert">
-                {{msg}}
-            </div>
-            {% else %}
-            <div class="alert alert-danger" role="alert">
-                {{msg}}
-            </div>
-            {% endif %}
-            {% endif %}
+         
             <form method="POST" action="/" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <div class="form-group">
                     <label>Image</label>
                     <input type="file" class="form-control" name="file" value="" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </form>
-            {% if imagepath %}
-                <a download="processed.png" href="{{ url_for('images', path=imagepath) }}" class="btn btn-primary">Download</a>
-                <img src="{{ url_for('images', path=imagepath) }}">
-           
-            {% endif %}
         </div>
     </div>
 </div>
