@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 import models
 from database import engine
-from routers import auth, todos, Users, removebg
+from routers import auth, todos, Users
 from starlette.staticfiles import StaticFiles
+from starlette.responses import RedirectResponse
 
 app = FastAPI()
 
@@ -17,7 +18,11 @@ app.mount("/images", StaticFiles(directory="uploaded_images"), name="images")
 def health_check():
     return {'status': 'Healthy'}
 
-app.include_router(removebg.router)
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/todos",status_code=status.HTTP_302_FOUND)
+
+# app.include_router(removebg.router)
 app.include_router(auth.router)
 app.include_router(todos.router)
 app.include_router(Users.router)
